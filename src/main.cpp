@@ -6,9 +6,9 @@
 #include <ESP8266mDNS.h>
 
 // hardcoded wifi ssid, bssid and password
-const char *ssid = "Jimmy's Mom's WiFi";
-const char *bssid = "20:BE:CD:6B:FE:07";
-const char *password = "8137279081";
+const char *ssid = "";
+const char *bssid = "";
+const char *password = "";
 
 // webserver
 ESP8266WebServer server(80);
