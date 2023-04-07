@@ -7,7 +7,6 @@
 
 // hardcoded wifi ssid, bssid and password
 const char *ssid = "Jimmy's Mom's WiFi";
-const char *bssid = "20:BE:CD:6B:FE:07";
 const char *password = "8137279081";
 
 // webserver
@@ -200,13 +199,13 @@ void connectToWifi()
 {
   Serial.println("Connecting to wifi...");
 
-  // loop through available networks and find matching bssid
+  // loop through available networks and find matching ssid
   int n = WiFi.scanNetworks();
   Serial.println("Found " + String(n) + " networks");
 
   for (int i = 0; i < n; ++i)
   {
-    if (WiFi.BSSIDstr(i) == bssid)
+    if (WiFi.SSID(i) == ssid)
     {
       Serial.println("Found matching bssid, connecting...");
       WiFi.begin(ssid, password, WiFi.channel(i), WiFi.BSSID(i));
@@ -229,7 +228,7 @@ void connectToWifi()
     }
   }
 
-  Serial.println("No matching bssid found!!!");
+  Serial.println("No matching ssid found!!!");
 }
 
 void setup()
