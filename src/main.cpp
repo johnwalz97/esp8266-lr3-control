@@ -6,8 +6,9 @@
 #include <ESP8266mDNS.h>
 
 // hardcoded wifi ssid, bssid and password
-const char *ssid = "Jimmy's Mom's WiFi";
-const char *password = "8137279081";
+const char *ssid = "TestWifi";
+const char *bssid = "11:11:11:11:11:11";
+const char *password = "asdf";
 
 // webserver
 ESP8266WebServer server(80);
@@ -198,14 +199,21 @@ void setupServer()
 void connectToWifi()
 {
   Serial.println("Connecting to wifi...");
+  // Print out esp mac address
+  Serial.println("MAC: " + WiFi.macAddress());
 
   // loop through available networks and find matching ssid
   int n = WiFi.scanNetworks();
   Serial.println("Found " + String(n) + " networks");
+  // PRINT OUT ALL NETWORKS
+  for (int i = 0; i < n; ++i)
+  {
+    Serial.println(WiFi.SSID(i) + " " + WiFi.RSSI(i) + " " + WiFi.channel(i) + " " + WiFi.BSSIDstr(i));
+  }
 
   for (int i = 0; i < n; ++i)
   {
-    if (WiFi.SSID(i) == ssid)
+    if (WiFi.BSSIDstr(i) == bssid)
     {
       Serial.println("Found matching bssid, connecting...");
       WiFi.begin(ssid, password, WiFi.channel(i), WiFi.BSSID(i));
@@ -228,7 +236,7 @@ void connectToWifi()
     }
   }
 
-  Serial.println("No matching ssid found!!!");
+  Serial.println("No matching BSSID found!!!");
 }
 
 void setup()
